@@ -17,14 +17,63 @@
    <widget class="QPushButton" name="btn_pathFolder">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>100</y>
+      <x>710</x>
+      <y>10</y>
       <width>75</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>폴더 찾기</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_deleteRow">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>350</y>
+      <width>81</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>- 행 삭제</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_insertRow">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>350</y>
+      <width>75</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>+ 행 추가</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="grd_list">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>380</y>
+      <width>741</width>
+      <height>171</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>350</y>
+      <width>491</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>그리드 행 클릭시 복사. 더블클릭시 편집 가능</string>
     </property>
    </widget>
   </widget>

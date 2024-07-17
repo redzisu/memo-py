@@ -10,20 +10,61 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
+        #==================  Default Setting  ====================
+        # QListWidget
+        # self.ui.grd_list.setMinimumWidth(self.ui.grd_list.sizeHintForColumn(0))
+        
         #==================  Signal  ====================
-        self.ui.btn_pathFolder.clicked.connect(self.fn_pathFolder)
+        self.ui.btn_pathFolder.clicked.connect(lambda : self.fn_confirm("삭제하시겠습니까?", lambda: print("yes"), lambda: print("no"))) 
+        self.ui.btn_insertRow.clicked.connect(self.fn_insertRow)
         
     #==================  Slot ====================
-    def fn_pathFolder(self) :
-        user_documents_folder = os.path.expandvars(r'%USERPROFILE%\Documents')  # Default Root: 내 문서
+    # 리스트 행 추가
+    def fn_insertRow(self) :
+        self.ui.grd_list.addItem('')
+    
+    # 리스트 행 편집
+    def fn_editRow(self) :
+        user_documents_folder = os.path.expandvars(r'%USERPROFILE%\Documents')  
         fname = QFileDialog.getExistingDirectory(self, '폴더 선택', user_documents_folder, QFileDialog.ShowDirsOnly)
         #self.ui.ibx_downPath.setText(fname)
     
+    # 리스트 행 삭제
+    def fn_deleteRow(self) :
+        user_documents_folder = os.path.expandvars(r'%USERPROFILE%\Documents')  
+        fname = QFileDialog.getExistingDirectory(self, '폴더 선택', user_documents_folder, QFileDialog.ShowDirsOnly)
+        #self.ui.ibx_downPath.setText(fname)
+        
+    # 폴더 선택창 열기 (기본경로는 '내 문서'로 설정)
+    def fn_openFolder(self) :
+        user_documents_folder = os.path.expandvars(r'%USERPROFILE%\Documents')  
+        fname = QFileDialog.getExistingDirectory(self, '폴더 선택', user_documents_folder, QFileDialog.ShowDirsOnly)
+        #self.ui.ibx_downPath.setText(fname)
+        
     # Alert창 
-    def fn_alertBox(self, pStr): 
+    # @param 메시지
+    def fn_alert(self, pStr): 
         msgBox = QMessageBox()
+        msgBox.setWindowTitle("Alert")
+        msgBox.setIcon(QMessageBox.Question)
         msgBox.setText(pStr)
         msgBox.exec() 
+        
+    # Confirm창 
+    # @param 메시지
+    def fn_confirm(self, pStr, pCallback_yes, pCallback_no): 
+        msgBox = QMessageBox()
+        msgBox.setWindowTitle("Confirm")
+        msgBox.setIcon(QMessageBox.Question)
+        msgBox.setText(pStr)
+        msgBox.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel)
+        ret = msgBox.exec() 
+        
+        if ret == QMessageBox.Save:
+            pCallback_yes()
+        else:
+            pCallback_no()
+            
     
 if __name__ == "__main__":
     app = QApplication(sys.argv) 
