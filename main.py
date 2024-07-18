@@ -29,8 +29,8 @@ class MainWindow(QMainWindow):
             lambda: None
             )) 
         
-        self.ui.grd_list.itemActivated.connect(self.fn_editEndRow)
         self.ui.grd_list.itemClicked.connect(self.fn_copyRow)
+        self.ui.grd_list.keyPressEvent = self.event_keyPress
         
     #==================  Slot ====================
     # 리스트 행 추가
@@ -46,11 +46,21 @@ class MainWindow(QMainWindow):
         if (self.ui.grd_list.isPersistentEditorOpen(item) == False) :
             self.ui.grd_list.openPersistentEditor(item)
     
-    def fn_editEndRow(self) :
-        item = self.ui.grd_list.currentItem()
-        if (self.ui.grd_list.isPersistentEditorOpen(item)) :
-            self.ui.grd_list.closePersistentEditor(item)
+    # 리스트 keyPress 이벤트
+    def event_keyPress(self, event):
+        if QKeyEvent.key(event) == Qt.Key_Return :
+            self.fn_editEndRow()
             
+    # 리스트 행 편집종료
+    def fn_editEndRow(self) :
+        items = [self.ui.grd_list.item(x) for x in range(self.ui.grd_list.count())]
+        
+        for item in items :
+            if (self.ui.grd_list.isPersistentEditorOpen(item)) :
+                self.ui.grd_list.closePersistentEditor(item)
+            if (item.text().strip() == '') :
+                self.ui.grd_list.takeItem(self.ui.grd_list.row(item))
+
     # 리스트 행 삭제
     def fn_deleteRow(self) :
         row = self.ui.grd_list.currentRow()

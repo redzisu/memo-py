@@ -36,6 +36,9 @@
       <height>171</height>
      </rect>
     </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">

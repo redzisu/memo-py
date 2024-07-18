@@ -32,6 +32,7 @@ class Ui_MainWindow(object):
         self.grd_list = QListWidget(self.centralwidget)
         self.grd_list.setObjectName(u"grd_list")
         self.grd_list.setGeometry(QRect(30, 380, 741, 171))
+        self.grd_list.setLineWidth(1)
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(40, 340, 281, 31))
