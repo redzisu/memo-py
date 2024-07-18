@@ -4,6 +4,7 @@ import clipboard
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
+from pyqttoast import Toast, ToastPreset, ToastPosition
 
 from mainWindow_ui import Ui_MainWindow
 
@@ -20,6 +21,7 @@ class MainWindow(QMainWindow):
         # self.ui.grd_list.setMinimumWidth(self.ui.grd_list.sizeHintForColumn(0))
         
         #==================  Signal  ====================
+        self.ui.btn_editRow.clicked.connect(self.fn_editRow)
         self.ui.btn_insertRow.clicked.connect(self.fn_insertRow)
         self.ui.btn_deleteRow.clicked.connect(lambda : self.fn_confirm(
             "삭제하시겠습니까?", 
@@ -27,7 +29,7 @@ class MainWindow(QMainWindow):
             lambda: None
             )) 
         
-        self.ui.grd_list.itemActivated.connect(self.fn_editRow)
+        self.ui.grd_list.itemActivated.connect(self.fn_editEndRow)
         self.ui.grd_list.itemClicked.connect(self.fn_copyRow)
         
     #==================  Slot ====================
@@ -41,11 +43,14 @@ class MainWindow(QMainWindow):
     # 리스트 행 편집
     def fn_editRow(self) :
         item = self.ui.grd_list.currentItem()
-        if (self.ui.grd_list.isPersistentEditorOpen(item)) :
-            self.ui.grd_list.closePersistentEditor(item)
-        else :
+        if (self.ui.grd_list.isPersistentEditorOpen(item) == False) :
             self.ui.grd_list.openPersistentEditor(item)
     
+    def fn_editEndRow(self) :
+        item = self.ui.grd_list.currentItem()
+        if (self.ui.grd_list.isPersistentEditorOpen(item)) :
+            self.ui.grd_list.closePersistentEditor(item)
+            
     # 리스트 행 삭제
     def fn_deleteRow(self) :
         row = self.ui.grd_list.currentRow()
@@ -55,6 +60,7 @@ class MainWindow(QMainWindow):
     def fn_copyRow(self) :
         copyText = self.ui.grd_list.currentItem().text()
         clipboard.copy(copyText)
+        self.fn_toast("복사 성공")
             
     # 폴더 선택창 열기 (기본경로는 '내 문서'로 설정)
     def fn_openFolder(self) :
@@ -88,6 +94,20 @@ class MainWindow(QMainWindow):
         else:
             pCallback_no()
     
+    # Toast창
+    # https://github.com/niklashenning/pyqttoast?tab=readme-ov-file
+    def fn_toast(self, pStr):
+        toast = Toast(self)
+        toast.setDuration(1000)  # 1초
+        toast.setTitle(pStr)
+        Toast.setMaximumOnScreen(3) # 화면에 maximum 1개
+        toast.applyPreset(ToastPreset.SUCCESS)
+        toast.setIconSize(QSize(14, 14))
+        toast.setShowCloseButton(False)
+        toast.setFadeInDuration(100)  
+        toast.setFadeOutDuration(150)
+        toast.show()
+        
 if __name__ == "__main__":
     app = QApplication(sys.argv) 
     window = MainWindow()        
