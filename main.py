@@ -1,9 +1,13 @@
 import sys
 import os
+import clipboard
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
+
 from mainWindow_ui import Ui_MainWindow
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -24,15 +28,15 @@ class MainWindow(QMainWindow):
             )) 
         
         self.ui.grd_list.itemActivated.connect(self.fn_editRow)
+        self.ui.grd_list.itemClicked.connect(self.fn_copyRow)
         
     #==================  Slot ====================
     # 리스트 행 추가
     def fn_insertRow(self) :
         item = QListWidgetItem('')
-        # item.setBackground(QColor('yellow'))  # 배경색을 초록색으로 설정합니다.
         self.ui.grd_list.addItem(item)
-        self.ui.grd_list.openPersistentEditor(item)
         self.ui.grd_list.setCurrentItem(item)
+        self.ui.grd_list.openPersistentEditor(item)
         
     # 리스트 행 편집
     def fn_editRow(self) :
@@ -46,8 +50,12 @@ class MainWindow(QMainWindow):
     def fn_deleteRow(self) :
         row = self.ui.grd_list.currentRow()
         self.ui.grd_list.takeItem(row)
+        
+    # 리스트 행 복사
+    def fn_copyRow(self) :
+        copyText = self.ui.grd_list.currentItem().text()
+        clipboard.copy(copyText)
             
-    
     # 폴더 선택창 열기 (기본경로는 '내 문서'로 설정)
     def fn_openFolder(self) :
         user_documents_folder = os.path.expandvars(r'%USERPROFILE%\Documents')  
