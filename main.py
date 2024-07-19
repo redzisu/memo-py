@@ -48,7 +48,8 @@ class MainWindow(QMainWindow):
     
     # 리스트 keyPress 이벤트
     def event_keyPress(self, event):
-        if QKeyEvent.key(event) == Qt.Key_Return :
+        if event.key() == Qt.Key_Return and event.modifiers() & Qt.AltModifier:   
+            print("dd")
             self.fn_editEndRow()
             
     # 리스트 행 편집종료
