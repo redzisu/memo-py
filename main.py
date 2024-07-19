@@ -8,7 +8,24 @@ from pyqttoast import Toast, ToastPreset, ToastPosition
 
 from mainWindow_ui import Ui_MainWindow
 
+class TextEditDelegate(QStyledItemDelegate):
+    def createEditor(self, parent, option, index):
+        editor = QTextEdit(parent)
+        editor.setLineWrapMode(QTextEdit.WidgetWidth) 
+        editor.setFixedHeight(editor.fontMetrics().lineSpacing() * 3)  # 3줄 높이로 설정
+        return editor
 
+    def setEditorData(self, editor, index):
+        text = index.model().data(index, Qt.EditRole)
+        editor.setPlainText(text)
+
+    def setModelData(self, editor, model, index):
+        text = editor.toPlainText()
+        model.setData(index, text, Qt.EditRole)
+
+    def updateEditorGeometry(self, editor, option, index):
+        editor.setGeometry(option.rect)
+        
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -19,6 +36,9 @@ class MainWindow(QMainWindow):
         #==================  Default Setting  ====================
         # QListWidget
         # self.ui.grd_list.setMinimumWidth(self.ui.grd_list.sizeHintForColumn(0))
+        
+        # QListWidget 텍스트 편집 커스텀
+        self.ui.grd_list.setItemDelegate(TextEditDelegate())
         
         #==================  Signal  ====================
         self.ui.btn_editRow.clicked.connect(self.fn_editRow)
@@ -48,9 +68,9 @@ class MainWindow(QMainWindow):
     
     # 리스트 keyPress 이벤트
     def event_keyPress(self, event):
-        if event.key() == Qt.Key_Return and event.modifiers() & Qt.AltModifier:   
-            print("dd")
+        if event.key() == Qt.Key_Return :
             self.fn_editEndRow()
+            
             
     # 리스트 행 편집종료
     def fn_editEndRow(self) :
