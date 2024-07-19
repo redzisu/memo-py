@@ -1,6 +1,8 @@
 import sys
 import os
 import clipboard
+import customStyle
+
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
@@ -49,15 +51,14 @@ class MainWindow(QMainWindow):
         self.ui.grd_list.setItemDelegate(TextEditDelegate(self.ui.grd_list))
         
         #==================  Signal  ====================
-        #self.ui.btn_editList.clicked.connect(self.fn_editList)
         self.ui.btn_insertList.clicked.connect(self.fn_insertList)
         self.ui.btn_deleteList.clicked.connect(lambda : self.fn_confirm(
             "삭제하시겠습니까?", 
             lambda: self.fn_deleteList(), 
             lambda: None
             )) 
-        
-        self.ui.grd_list.itemDoubleClicked.connect(self.fn_editList)
+        self.ui.btn_editList.clicked.connect(self.fn_editList)
+
         self.ui.grd_list.itemClicked.connect(self.fn_copyList)
         self.ui.grd_list.keyPressEvent = self.event_keyPress
         
@@ -144,6 +145,8 @@ class MainWindow(QMainWindow):
         
 if __name__ == "__main__":
     app = QApplication(sys.argv) 
+    app.setStyleSheet(customStyle.style_sheet)
+    
     window = MainWindow()        
     window.show()                 
     sys.exit(app.exec())         

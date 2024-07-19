@@ -23,6 +23,9 @@
       <height>341</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="lineWidth">
      <number>1</number>
     </property>
@@ -34,6 +37,9 @@
     </property>
     <property name="wordWrap">
      <bool>true</bool>
+    </property>
+    <property name="itemAlignment">
+     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
     </property>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
