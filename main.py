@@ -2,12 +2,12 @@ import sys
 import os
 import clipboard
 import pickle
-import customStyle
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from pyqttoast import Toast, ToastPreset, ToastPosition
 from mainWindow_ui import Ui_MainWindow
+import customStyle
 
 # QListWidget 커스텀 텍스트 편집
 # LineEdit -> TextEdit : multiline 입력 및 수정 가능하도록 수정
@@ -47,7 +47,7 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
-        self.setWindowTitle("Work-Assist")
+        self.setWindowTitle("Memo")
         self.setWindowIcon(QIcon.fromTheme("emblem-favorite"))  # 아이콘 ☆
         
         #==================  Default Setting  ====================
@@ -73,7 +73,7 @@ class MainWindow(QMainWindow):
             )) 
         self.ui.btn_editList.clicked.connect(self.fn_editList)
         
-        self.ui.grd_list.itemClicked.connect(self.fn_copyList)
+        self.ui.grd_list.itemDoubleClicked.connect(self.fn_copyList)
         self.ui.grd_list.keyPressEvent = self.event_keyPress
         
     #==================  Slot ====================
@@ -103,6 +103,8 @@ class MainWindow(QMainWindow):
     def event_keyPress(self, event):
         if event.key() == Qt.Key_Return and event.modifiers() & Qt.ControlModifier:
             self.fn_editEndList()
+        else:
+            super().keyPressEvent(event)  # 기본 동작 처리
             
     # 리스트 행 편집종료
     def fn_editEndList(self) :

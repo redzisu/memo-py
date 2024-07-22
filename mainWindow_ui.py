@@ -23,12 +23,12 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(791, 789)
+        MainWindow.resize(791, 663)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.grd_list = QListWidget(self.centralwidget)
         self.grd_list.setObjectName(u"grd_list")
-        self.grd_list.setGeometry(QRect(20, 400, 751, 341))
+        self.grd_list.setGeometry(QRect(20, 60, 751, 551))
         self.grd_list.setStyleSheet(u"")
         self.grd_list.setLineWidth(1)
         self.grd_list.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
@@ -37,7 +37,7 @@ class Ui_MainWindow(object):
         self.grd_list.setItemAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignTop)
         self.horizontalLayoutWidget = QWidget(self.centralwidget)
         self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
-        self.horizontalLayoutWidget.setGeometry(QRect(509, 350, 261, 41))
+        self.horizontalLayoutWidget.setGeometry(QRect(510, 10, 261, 41))
         self.horizontalLayout = QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -58,7 +58,7 @@ class Ui_MainWindow(object):
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(20, 350, 301, 41))
+        self.label.setGeometry(QRect(20, 10, 301, 41))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -78,7 +78,7 @@ class Ui_MainWindow(object):
         self.btn_editList.setText(QCoreApplication.translate("MainWindow", u"\ud3b8\uc9d1", None))
         self.btn_insertList.setText(QCoreApplication.translate("MainWindow", u"\ucd94\uac00", None))
         self.btn_deleteList.setText(QCoreApplication.translate("MainWindow", u"\uc0ad\uc81c", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"- \ud589 \ud074\ub9ad : \ud074\ub9bd\ubcf4\ub4dc \ubcf5\uc0ac\n"
+        self.label.setText(QCoreApplication.translate("MainWindow", u"- \ud589 \ub354\ube14\ud074\ub9ad : \ud074\ub9bd\ubcf4\ub4dc \ubcf5\uc0ac\n"
 "- Ctrl+Enter : \ud3b8\uc9d1 \uc885\ub8cc \ubc0f \uc800\uc7a5", None))
     # retranslateUi
 
