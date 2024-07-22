@@ -27,26 +27,111 @@ style_sheet = """
         border-left: 5px solid #62A668;  /* 초록색 5px 테두리 */
     }
     
+    /* 텍스트편집창 */ 
+    QTextEdit {
+        padding: 5px 10px;
+        border: 1px solid #62A668;  /* 초록색 5px 테두리 */
+        color: #000000; /* 기본 텍스트 색상 */
+        background-color: #FFFFF2; /* 기본 배경 색상 */
+    }
+
     /* 버튼 */
-    QPushButton {
-        background-color: #62A668;  /* 초록색 배경 */
-        color: white;  /* 흰색 텍스트 */
-        padding: 4px 16px;  /* 패딩 */
-        border-radius: 4px;  /* 둥근 모서리 */
+    QPushButton.custom {
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 5px 10px;
+        border: 2px solid transparent;
+        color: #FFFFFF;
+        background-color: #E7F4F9;
+        position: relative;
     }
-    
-    QPushButton:hover {
-        background-color: #57945D;  /* 조금 더 어두운 초록색 배경 */
+    QPushButton.custom.btn-blue {
+        background-color: #4EC0E9;
+        border-color: #4EC0E9;
     }
-    
-    QPushButton:pressed {
-        background-color: #4E8454;  /* 더 어두운 초록색 배경 */
+
+    QPushButton.custom.btn-blue:hover {
+        background-color: #38a2d3;
     }
-    
-    QPushButton:disabled {
-        background-color: #D3D3D3;  /* 비활성화된 버튼 배경색 */
-        color: #A0A0A0;  /* 비활성화된 버튼 텍스트 색상 */
-        border: 2px solid #CACACA;  /* 비활성화된 버튼 테두리 */
+
+    QPushButton.custom.btn-blue:pressed {
+        background-color: #2c8ab0;
     }
-    
+
+    QPushButton.custom.btn-blue:disabled {
+        background-color: #b3e0f2;
+        border-color: #b3e0f2;
+    }
+
+    QPushButton.custom.btn-grey {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    QPushButton.custom.btn-grey:hover {
+        background-color: #5a6268;
+    }
+
+    QPushButton.custom.btn-grey:pressed {
+        background-color: #4e555b;
+    }
+
+    QPushButton.custom.btn-grey:disabled {
+        background-color: #e2e6ea;
+        border-color: #e2e6ea;
+    }
+
+    QPushButton.custom.btn-green {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    QPushButton.custom.btn-green:hover {
+        background-color: #218838;
+    }
+
+    QPushButton.custom.btn-green:pressed {
+        background-color: #1e7e34;
+    }
+
+    QPushButton.custom.btn-green:disabled {
+        background-color: #c3e6cb;
+        border-color: #c3e6cb;
+    }
+
+    QPushButton.custom.btn-yellow {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+    QPushButton.custom.btn-yellow:hover {
+        background-color: #e0a800;
+    }
+
+    QPushButton.custom.btn-yellow:pressed {
+        background-color: #d39e00;
+    }
+
+    QPushButton.custom.btn-yellow:disabled {
+        background-color: #ffeeba;
+        border-color: #ffeeba;
+    }
+
+    QPushButton.custom.btn-red {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    QPushButton.custom.btn-red:hover {
+        background-color: #c82333;
+    }
+
+    QPushButton.custom.btn-red:pressed {
+        background-color: #bd2130;
+    }
+
+    QPushButton.custom.btn-red:disabled {
+        background-color: #f5c6cb;
+        border-color: #f5c6cb;
+    }
 """

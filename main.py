@@ -59,6 +59,10 @@ class MainWindow(QMainWindow):
             data = pickle.load(f) 
         self.ui.grd_list.insertItems(0, data)
         
+        # 버튼 css 설정
+        self.ui.btn_editList.setProperty("class", "custom btn-blue") 
+        self.ui.btn_insertList.setProperty("class", "custom btn-grey") 
+        self.ui.btn_deleteList.setProperty("class", "custom btn-red") 
         
         #==================  Signal  ====================
         self.ui.btn_insertList.clicked.connect(self.fn_insertList)
@@ -68,13 +72,15 @@ class MainWindow(QMainWindow):
             lambda: None
             )) 
         self.ui.btn_editList.clicked.connect(self.fn_editList)
-
+        
         self.ui.grd_list.itemClicked.connect(self.fn_copyList)
         self.ui.grd_list.keyPressEvent = self.event_keyPress
         
     #==================  Slot ====================
     # 리스트 행 추가
     def fn_insertList(self) :
+        self.fn_editEndList()
+         
         item = QListWidgetItem('')
         self.ui.grd_list.addItem(item)
         self.ui.grd_list.setCurrentItem(item)
@@ -117,6 +123,8 @@ class MainWindow(QMainWindow):
         
     # 리스트 행 복사
     def fn_copyList(self) :
+        self.fn_editEndList()
+        
         copyText = self.ui.grd_list.currentItem().text()
         clipboard.copy(copyText)
         self.fn_toast("복사 성공")
