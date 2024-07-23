@@ -23,12 +23,12 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(791, 663)
+        MainWindow.resize(791, 637)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.grd_list = QListWidget(self.centralwidget)
         self.grd_list.setObjectName(u"grd_list")
-        self.grd_list.setGeometry(QRect(20, 60, 751, 551))
+        self.grd_list.setGeometry(QRect(20, 60, 751, 521))
         self.grd_list.setStyleSheet(u"")
         self.grd_list.setLineWidth(1)
         self.grd_list.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)

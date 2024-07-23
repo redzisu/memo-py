@@ -9,6 +9,13 @@ from pyqttoast import Toast, ToastPreset, ToastPosition
 from mainWindow_ui import Ui_MainWindow
 import customStyle
 
+# pyinstaller -w -F --add-data "data.pickle;." main.py
+# pyinstaller --onefile  --add-data "data.pickle;." main.py
+# datas=[('data.pickle', '.')],
+# C:\Users\\AppData\Local\Temp
+# exe파일은 빌드될때마다 초기화됨. 저장하는 경로 따로 두기/..
+# pyinstaller -w -F --add-data "customStyle.py;." main.py
+
 # QListWidget 커스텀 텍스트 편집
 # LineEdit -> TextEdit : multiline 입력 및 수정 가능하도록 수정
 class TextEditDelegate(QStyledItemDelegate):
@@ -55,10 +62,17 @@ class MainWindow(QMainWindow):
         self.ui.grd_list.setItemDelegate(TextEditDelegate(self.ui.grd_list))
         
         # QListWidget 데이터 불러오기
-        with open("data.pickle", "rb") as f: # rb : 바이트 형식으로 읽어오기
-            data = pickle.load(f) 
-        self.ui.grd_list.insertItems(0, data)
+        self.pickle_file_path = self.resource_path('MemoBackup.pickle')
         
+        if os.path.exists(self.pickle_file_path):
+            with open(self.pickle_file_path, "rb") as f: # rb : 바이트 형식으로 읽어오기
+                data = pickle.load(f) 
+            self.ui.grd_list.insertItems(0, data)
+        else:
+            with open(self.pickle_file_path, "wb") as f: # wb : 바이트 형식으로 쓰기
+                pickle.dump('', f) 
+            self.fn_alert("[신규생성] 백업 파일이 존재하지 않습니다.")
+    
         # 버튼 css 설정
         self.ui.btn_editList.setProperty("class", "custom btn-blue") 
         self.ui.btn_insertList.setProperty("class", "custom btn-grey") 
@@ -72,7 +86,7 @@ class MainWindow(QMainWindow):
             lambda: None
             )) 
         self.ui.btn_editList.clicked.connect(self.fn_editList)
-        
+        self.ui.grd_list.itemClicked.connect(self.fn_editEndList)
         self.ui.grd_list.itemDoubleClicked.connect(self.fn_copyList)
         self.ui.grd_list.keyPressEvent = self.event_keyPress
         
@@ -96,7 +110,7 @@ class MainWindow(QMainWindow):
     def fn_saveList(self) :
         itemData = [self.ui.grd_list.item(x).text() for x in range(self.ui.grd_list.count())]
         
-        with open("data.pickle", "wb") as f: # wb : 바이트 형식으로 쓰기
+        with open(self.pickle_file_path, "wb") as f: # wb : 바이트 형식으로 쓰기
             pickle.dump(itemData, f) 
             
     # 리스트 keyPress 이벤트
@@ -170,6 +184,17 @@ class MainWindow(QMainWindow):
         toast.setFadeInDuration(100)  
         toast.setFadeOutDuration(150)
         toast.show()
+    
+    # pickle파일 빌드용
+    def resource_path(self, relative_path):
+        try:
+            base_path = os.path.expandvars(r'%USERPROFILE%\Documents') # 문서
+        except AttributeError:
+            base_path = os.path.dirname(os.path.abspath(__file__))
+            
+        # 폴더생성
+        os.makedirs(base_path + '\Memo.bak', exist_ok=True)
+        return os.path.join(base_path + '\Memo.bak', relative_path)
         
 if __name__ == "__main__":
     app = QApplication(sys.argv) 
