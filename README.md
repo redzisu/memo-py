@@ -1,7 +1,8 @@
-# memo-app-pyside6
+# memo-pyside6
 Simple Memo app using pyside6.  
 - Create, edit, and delete notes.
 - Double-click to quickly copy the note.
+- Developed for practice purposes.
 
 |**Default** | **Edit** |
 |---|---|
