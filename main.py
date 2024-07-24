@@ -6,8 +6,8 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from pyqttoast import Toast, ToastPreset
-from mainWindow_ui import Ui_MainWindow
-import customStyle
+from view_ui import Ui_View
+import styles
 class TextEditDelegate(QStyledItemDelegate):
     def __init__(self, list_widget, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -41,7 +41,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         
-        self.ui = Ui_MainWindow()
+        self.ui = Ui_View()
         self.ui.setupUi(self)
         
         self.setWindowTitle("Memo")
@@ -194,7 +194,7 @@ class MainWindow(QMainWindow):
         
 if __name__ == "__main__":
     app = QApplication(sys.argv) 
-    app.setStyleSheet(customStyle.style_sheet)
+    app.setStyleSheet(styles.style_sheet)
     
     window = MainWindow()        
     window.show()                 
