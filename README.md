@@ -1,5 +1,6 @@
 # memo-pyside6
-Simple Memo app using pyside6
+Simple Memo app using pyside6.
+read, write, delete, and edit text.
 
 |**Default** | **Edit** |
 |---|---|
