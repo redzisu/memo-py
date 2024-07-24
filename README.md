@@ -10,15 +10,16 @@ Simple Memo app using pyside6
 - pyside6, Qt Designer
 
 ## Library
-- pickle
-- clipboard
-- pyqttoast
+- `import pickle`
+- `import clipboard`
+- `import pyqttoast`
 
 ## Data
-Data is saved using Python's `pickle` module, with backup files stored in the _Documents_ folder.  
-A new file is created if none exists when the app is first opened.
+The data is saved as a `pickle` file in the _Documents_ folder.  
 
-![image](https://github.com/user-attachments/assets/cd15f0bf-8b97-4cb3-89f8-385b61c08922)
+![image](https://github.com/user-attachments/assets/f266ca19-304e-4a31-9f2f-53cff19148a2)
+
+⚠️  Please make sure not to delete this backup file.
 
 ## Run
 1. Navigate to the `dist` folder.
