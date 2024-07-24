@@ -24,17 +24,17 @@ The data is saved as a `pickle` file in the _Documents_ folder.
 
 ⚠️  Please make sure not to delete this backup file.
 
-## Run
-1. Navigate to the `dist` folder.
-2. Download `Memo.exe`.
-3. double-click to run the app.
-
-#### OR
+## Build
 1. Download the source code from the repository.
 2. Package the project by running the following command:
 ```bash
 pyinstaller main.spec
 ```
+
+## Run
+1. Navigate to the `dist` folder.
+2. Download `Memo.exe`.
+3. double-click to run the app.
 
 ## Planned Features
 - 창 크기에 따라 컴포넌트 사이즈를 유연하게 조정
