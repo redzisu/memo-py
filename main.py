@@ -5,19 +5,9 @@ import pickle
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
-from pyqttoast import Toast, ToastPreset, ToastPosition
+from pyqttoast import Toast, ToastPreset
 from mainWindow_ui import Ui_MainWindow
 import customStyle
-
-# pyinstaller -w -F --add-data "data.pickle;." main.py
-# pyinstaller --onefile  --add-data "data.pickle;." main.py
-# datas=[('data.pickle', '.')],
-# C:\Users\\AppData\Local\Temp
-# exe파일은 빌드될때마다 초기화됨. 저장하는 경로 따로 두기/..
-# pyinstaller -w -F --add-data "customStyle.py;." main.py
-
-# QListWidget 커스텀 텍스트 편집
-# LineEdit -> TextEdit : multiline 입력 및 수정 가능하도록 수정
 class TextEditDelegate(QStyledItemDelegate):
     def __init__(self, list_widget, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -56,7 +46,7 @@ class MainWindow(QMainWindow):
         
         self.setWindowTitle("Memo")
         self.setWindowIcon(QIcon.fromTheme("emblem-favorite"))  # 아이콘 ☆
-        
+    
         #==================  Default Setting  ====================
         # QListWidget 커스텀 텍스트 편집 
         self.ui.grd_list.setItemDelegate(TextEditDelegate(self.ui.grd_list))
@@ -143,7 +133,10 @@ class MainWindow(QMainWindow):
         
         copyText = self.ui.grd_list.currentItem().text()
         clipboard.copy(copyText)
-        self.fn_toast("복사 성공")
+        try:
+            self.fn_toast("복사 성공")
+        except Exception as e:
+            print("ddddd" )
         
     # Alert창 
     # @param 메시지
@@ -174,16 +167,19 @@ class MainWindow(QMainWindow):
     # Toast창
     # https://github.com/niklashenning/pyqttoast?tab=readme-ov-file
     def fn_toast(self, pStr):
-        toast = Toast(self)
-        toast.setDuration(1000)  # 1초
-        toast.setTitle(pStr)
-        Toast.setMaximumOnScreen(3) # 화면에 maximum 1개
-        toast.applyPreset(ToastPreset.SUCCESS)
-        toast.setIconSize(QSize(14, 14))
-        toast.setShowCloseButton(False)
-        toast.setFadeInDuration(100)  
-        toast.setFadeOutDuration(150)
-        toast.show()
+        try:
+            toast = Toast(self)
+            toast.setDuration(1000)  # 1초
+            toast.setTitle(pStr)
+            Toast.setMaximumOnScreen(3) # 화면에 maximum 1개
+            toast.applyPreset(ToastPreset.SUCCESS)
+            toast.setIconSize(QSize(14, 14))
+            toast.setShowCloseButton(False)
+            toast.setFadeInDuration(100)  
+            toast.setFadeOutDuration(150)
+            toast.show()
+        except Exception as e:
+            print("An error occurred in show_toast:", e)
     
     # pickle파일 빌드용
     def resource_path(self, relative_path):
