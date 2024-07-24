@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QListWidget,
     QListWidgetItem, QMainWindow, QMenuBar, QPushButton,
     QSizePolicy, QStatusBar, QWidget)
 
-class Ui_screen(object):
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -74,11 +74,11 @@ class Ui_screen(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("screen", u"MainWindow", None))
-        self.btn_editList.setText(QCoreApplication.translate("screen", u"\ud3b8\uc9d1", None))
-        self.btn_insertList.setText(QCoreApplication.translate("screen", u"\ucd94\uac00", None))
-        self.btn_deleteList.setText(QCoreApplication.translate("screen", u"\uc0ad\uc81c", None))
-        self.label.setText(QCoreApplication.translate("screen", u"- \ud589 \ub354\ube14\ud074\ub9ad : \ud074\ub9bd\ubcf4\ub4dc \ubcf5\uc0ac\n"
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.btn_editList.setText(QCoreApplication.translate("MainWindow", u"\ud3b8\uc9d1", None))
+        self.btn_insertList.setText(QCoreApplication.translate("MainWindow", u"\ucd94\uac00", None))
+        self.btn_deleteList.setText(QCoreApplication.translate("MainWindow", u"\uc0ad\uc81c", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"- \ud589 \ub354\ube14\ud074\ub9ad : \ud074\ub9bd\ubcf4\ub4dc \ubcf5\uc0ac\n"
 "- Ctrl+Enter : \ud3b8\uc9d1 \uc885\ub8cc \ubc0f \uc800\uc7a5", None))
     # retranslateUi
 
