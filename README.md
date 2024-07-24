@@ -29,8 +29,12 @@ The data is saved as a `pickle` file in the _Documents_ folder.
 2. Download `Memo.exe`.
 3. double-click to run the app.
 
-
-
+#### OR
+1. Download the source code from the repository.
+2. Package the project by running the following command:
+```bash
+pyinstaller main.spec
+```
 
 
 
