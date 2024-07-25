@@ -2,7 +2,7 @@
 Simple Memo app using Pyside6.  
 - Create, edit, and delete notes.
 - Double-click to quickly copy the note.
-- Developed for practicing PySide6.
+- Developed for practicing Pyside6.
 
 |**Default** | **Edit** |
 |---|---|
@@ -10,7 +10,7 @@ Simple Memo app using Pyside6.
    
 ## Use
 - Python
-- PySide6, Qt Designer
+- Pyside6, Qt Designer
 
 ## Library
 - `import pickle`
