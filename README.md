@@ -1,8 +1,8 @@
 # memo-py
-Simple Memo app using Pyside6.  
+Simple Memo app using PySide6.  
 - Create, edit, and delete notes.
 - Double-click to quickly copy the note.
-- Developed for practicing Pyside6.
+- Developed for practicing PySide6.
 
 | Default | Edit |
 |---|---|
@@ -10,12 +10,14 @@ Simple Memo app using Pyside6.
    
 ## Environment 
 - Python v3.12
-
+  
 | Package | Installation Command | 
 |--|--|
 | [PySide6](https://pypi.org/project/PySide6/) | `pip install PySide6` | 
 | [clipboard](https://pypi.org/project/clipboard/)  | `pip install clipboard` |
 | [pyqttoast](https://pypi.org/project/pyqt-toast-notification/)  | `pip install pyqt-toast-notification` |
+
+To edit the UI, enter `pyside-designer` into the command line. It is included with the pyside6 package.
 
 ## Data Storage
 The data is saved as a `pickle` file in the **Documents** folder.   
