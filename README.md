@@ -4,25 +4,24 @@ Simple Memo app using Pyside6.
 - Double-click to quickly copy the note.
 - Developed for practicing Pyside6.
 
-|**Default** | **Edit** |
+| Default | Edit |
 |---|---|
 ![image](https://github.com/user-attachments/assets/b0d056a2-502a-4ff8-b2ee-36ea406bf624) | ![image](https://github.com/user-attachments/assets/1cca1b12-ac4d-4205-9cd6-5e1a0e97d941)
    
-## Use
-- Python
-- Pyside6, Qt Designer
+## Environment 
+- Python v3.12
 
-## Library
-- `import pickle`
-- `import clipboard`
-- `import pyqttoast`
+| Package | Installation Command | 
+|--|--|
+| [PySide6](https://pypi.org/project/PySide6/) | `pip install PySide6` | 
+| [clipboard](https://pypi.org/project/clipboard/)  | `pip install clipboard` |
+| [pyqttoast](https://pypi.org/project/pyqt-toast-notification/)  | `pip install pyqt-toast-notification` |
 
-## Data
-The data is saved as a `pickle` file in the _Documents_ folder.  
+## Data Storage
+The data is saved as a `pickle` file in the **Documents** folder.   
 
-![image](https://github.com/user-attachments/assets/f266ca19-304e-4a31-9f2f-53cff19148a2)
-
-⚠️  Please make sure not to delete this backup file.
+![image](https://github.com/user-attachments/assets/f266ca19-304e-4a31-9f2f-53cff19148a2)  
+*⚠️  Please make sure not to delete this backup file.*
 
 ## Build
 1. Download the source code from the repository.
