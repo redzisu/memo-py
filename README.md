@@ -38,7 +38,7 @@ pyinstaller main.spec
 3. double-click to run the app.
 
 ## Planned Features
-- 창 크기에 따라 컴포넌트 사이즈를 유연하게 조정
+- ~~창 크기에 따라 컴포넌트 사이즈를 유연하게 조정~~
 - 즐겨찾기 기능 추가
 - 정렬 기능 구현
 - 날짜 데이터 및 테이블 형식 지원
