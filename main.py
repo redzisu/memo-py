@@ -80,6 +80,9 @@ class MainWindow(QMainWindow):
         self.ui.grd_list.itemDoubleClicked.connect(self.fn_copyList)
         self.ui.grd_list.keyPressEvent = self.event_keyPress
         
+        self.ui.chk_top.clicked.connect(self.fn_toggleOnTop)
+        self.is_always_on_top = False
+        
     #==================  Slot ====================
     # 리스트 행 추가
     def fn_insertList(self) :
@@ -180,6 +183,18 @@ class MainWindow(QMainWindow):
             toast.show()
         except Exception as e:
             print("An error occurred in show_toast:", e)
+    
+    def fn_toggleOnTop(self, pStr):
+        base_flags = Qt.Window | Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
+        if self.is_always_on_top:
+            self.setWindowFlags(base_flags)
+            self.ui.chk_top.setChecked(False)
+            self.is_always_on_top = False
+        else:
+            self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
+            self.ui.chk_top.setChecked(True)
+            self.is_always_on_top = True
+        self.show()
     
     # pickle파일 빌드용
     def resource_path(self, relative_path):

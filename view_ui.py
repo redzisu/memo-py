@@ -15,10 +15,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QHBoxLayout, QLabel,
-    QLayout, QListView, QListWidget, QListWidgetItem,
-    QMainWindow, QMenuBar, QPushButton, QSizePolicy,
-    QSpacerItem, QStatusBar, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QCheckBox, QHBoxLayout,
+    QLabel, QLayout, QListView, QListWidget,
+    QListWidgetItem, QMainWindow, QMenuBar, QPushButton,
+    QSizePolicy, QSpacerItem, QStatusBar, QVBoxLayout,
+    QWidget)
 
 class Ui_View(object):
     def setupUi(self, View):
@@ -48,6 +49,11 @@ class Ui_View(object):
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
+
+        self.chk_top = QCheckBox(self.centralwidget)
+        self.chk_top.setObjectName(u"chk_top")
+
+        self.horizontalLayout_2.addWidget(self.chk_top)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -112,6 +118,7 @@ class Ui_View(object):
         View.setWindowTitle(QCoreApplication.translate("View", u"View", None))
         self.label.setText(QCoreApplication.translate("View", u"- \ud589 \ub354\ube14\ud074\ub9ad : \ud074\ub9bd\ubcf4\ub4dc \ubcf5\uc0ac\n"
 "- Ctrl+Enter : \ud3b8\uc9d1 \uc885\ub8cc \ubc0f \uc800\uc7a5", None))
+        self.chk_top.setText(QCoreApplication.translate("View", u"\ub9e8 \uc704 \uace0\uc815", None))
         self.btn_editList.setText(QCoreApplication.translate("View", u"\ud3b8\uc9d1", None))
         self.btn_insertList.setText(QCoreApplication.translate("View", u"\ucd94\uac00", None))
         self.btn_deleteList.setText(QCoreApplication.translate("View", u"\uc0ad\uc81c", None))
