@@ -43,21 +43,10 @@ class Ui_View(object):
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
-        self.btn_editList = QPushButton(self.centralwidget)
-        self.btn_editList.setObjectName(u"btn_editList")
-        self.btn_editList.setMinimumSize(QSize(0, 0))
-
-        self.horizontalLayout.addWidget(self.btn_editList)
-
         self.btn_insertList = QPushButton(self.centralwidget)
         self.btn_insertList.setObjectName(u"btn_insertList")
 
         self.horizontalLayout.addWidget(self.btn_insertList)
-
-        self.btn_deleteList = QPushButton(self.centralwidget)
-        self.btn_deleteList.setObjectName(u"btn_deleteList")
-
-        self.horizontalLayout.addWidget(self.btn_deleteList)
 
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -65,6 +54,12 @@ class Ui_View(object):
 
         self.btn_topWindow = QPushButton(self.centralwidget)
         self.btn_topWindow.setObjectName(u"btn_topWindow")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.btn_topWindow.sizePolicy().hasHeightForWidth())
+        self.btn_topWindow.setSizePolicy(sizePolicy1)
+        self.btn_topWindow.setMinimumSize(QSize(30, 0))
         self.btn_topWindow.setStyleSheet(u"background-color: rgb(255, 255, 255);")
 
         self.horizontalLayout.addWidget(self.btn_topWindow)
@@ -111,9 +106,7 @@ class Ui_View(object):
 
     def retranslateUi(self, View):
         View.setWindowTitle(QCoreApplication.translate("View", u"View", None))
-        self.btn_editList.setText(QCoreApplication.translate("View", u"\ud3b8\uc9d1", None))
-        self.btn_insertList.setText(QCoreApplication.translate("View", u"\ucd94\uac00", None))
-        self.btn_deleteList.setText(QCoreApplication.translate("View", u"\uc0ad\uc81c", None))
+        self.btn_insertList.setText(QCoreApplication.translate("View", u"New", None))
         self.btn_topWindow.setText("")
     # retranslateUi
 

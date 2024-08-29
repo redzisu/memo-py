@@ -8,10 +8,12 @@ from PySide6.QtGui import *
 from pyqttoast import Toast, ToastPreset
 from view_ui import Ui_View
 import styles
+
 class TextEditDelegate(QStyledItemDelegate):
-    def __init__(self, list_widget, *args, **kwargs):
+    def __init__(self, list_widget, main_window, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.list_widget = list_widget
+        self.main_window = main_window
         
     def createEditor(self, parent, option, index):
         editor = QTextEdit(parent)
@@ -37,6 +39,45 @@ class TextEditDelegate(QStyledItemDelegate):
         option.displayAlignment = Qt.AlignTop | Qt.AlignLeft
         super().paint(painter, option, index)
         
+        if option.state & QStyle.State_Selected: #or option.state & QStyle.State_MouseOver:
+            rect = option.rect
+            icon_size = QSize(20, 20) 
+        
+            copy_rect = QRect(rect.right() - 60, rect.top() + 8, icon_size.width(), icon_size.height())
+            delete_rect = QRect(rect.right() - 25, rect.top() + 8, icon_size.width(), icon_size.height())
+
+            copy_icon = QIcon("./icon/copy.png")
+            delete_icon = QIcon("./icon/delete.png")
+
+            copy_icon.paint(painter, copy_rect, Qt.AlignCenter)
+            delete_icon.paint(painter, delete_rect, Qt.AlignCenter)
+    
+    def editorEvent(self, event, model, option, index):
+        if event.type() == QMouseEvent.MouseButtonRelease:
+            pos = event.position().toPoint()
+            item = self.list_widget.itemAt(pos)
+            
+            icon_size = QSize(20, 20) 
+            
+            if item:
+                rect = self.list_widget.visualItemRect(item)
+                copy_rect = QRect(rect.right() - 60, rect.top(), icon_size.width(), icon_size.height())
+                delete_rect = QRect(rect.right() - 25, rect.top(), icon_size.width(), icon_size.height())
+
+                if copy_rect.contains(pos):
+                    self.main_window.fn_copyList()
+                    return True
+
+                if delete_rect.contains(pos):
+                    self.main_window.fn_confirm(
+                    "삭제하시겠습니까?", 
+                    lambda: self.main_window.fn_deleteList(), 
+                    lambda: None
+                    )
+                    return True
+
+        return super().editorEvent(event, model, option, index)
+    
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__(parent=None)
@@ -50,9 +91,10 @@ class MainWindow(QMainWindow):
         Toast.setPositionRelativeToWidget(self) # Toast를 부모창에 종속된 위치로 변경
         Toast.setOffset(10, 10)
         
+        
         #==================  Default Setting  ====================
         # QListWidget 커스텀 텍스트 편집 
-        self.ui.grd_list.setItemDelegate(TextEditDelegate(self.ui.grd_list))
+        self.ui.grd_list.setItemDelegate(TextEditDelegate(self.ui.grd_list, self))
         
         # QListWidget 데이터 불러오기
         self.pickle_file_path = self.resource_path('MemoBackup.pickle')
@@ -65,11 +107,11 @@ class MainWindow(QMainWindow):
             with open(self.pickle_file_path, "wb") as f: # wb : 바이트 형식으로 쓰기
                 pickle.dump('', f) 
             self.fn_alert("[신규생성] 백업 파일이 존재하지 않습니다.")
-    
+            
         # 버튼 css 설정
-        self.ui.btn_editList.setProperty("class", "custom btn-blue") 
-        self.ui.btn_insertList.setProperty("class", "custom btn-grey") 
-        self.ui.btn_deleteList.setProperty("class", "custom btn-red") 
+        self.ui.btn_insertList.setProperty("class", "custom btn-green") 
+        self.ui.btn_insertList.setIconSize(QSize(20, 20))  # 아이콘 크기 설정
+        self.ui.btn_insertList.setIcon(QIcon("./icon/add.png"))
         
         self.ui.btn_topWindow.setProperty("class", "transparent") 
         self.ui.btn_topWindow.setIconSize(QSize(20, 20))  # 아이콘 크기 설정
@@ -77,14 +119,8 @@ class MainWindow(QMainWindow):
         
         #==================  Signal  ====================
         self.ui.btn_insertList.clicked.connect(self.fn_insertList)
-        self.ui.btn_deleteList.clicked.connect(lambda : self.fn_confirm(
-            "삭제하시겠습니까?", 
-            lambda: self.fn_deleteList(), 
-            lambda: None
-            )) 
-        self.ui.btn_editList.clicked.connect(self.fn_editList)
         self.ui.grd_list.itemClicked.connect(self.fn_editEndList)
-        self.ui.grd_list.itemDoubleClicked.connect(self.fn_copyList)
+        self.ui.grd_list.itemDoubleClicked.connect(self.fn_editList)
         self.ui.grd_list.keyPressEvent = self.event_keyPress
         self.ui.btn_topWindow.clicked.connect(self.fn_toggleOnTop)
         self.is_always_on_top = False
@@ -93,7 +129,6 @@ class MainWindow(QMainWindow):
     # 리스트 행 추가
     def fn_insertList(self) :
         self.fn_editEndList()
-         
         item = QListWidgetItem('')
         self.ui.grd_list.addItem(item)
         self.ui.grd_list.setCurrentItem(item)

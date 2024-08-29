@@ -24,7 +24,6 @@ style_sheet = """
     QListWidget::item:selected {
         background-color: #E7F4F9;  /* 하늘색 배경 */
         color: black;
-        border-left: 5px solid #62A668;  /* 초록색 5px 테두리 */
     }
     
     /* 텍스트편집창 */ 
@@ -41,6 +40,10 @@ style_sheet = """
         background-color: transparent;
     }
     
+    QPushButton.transparent:hover {
+        color: #73787D;
+    }
+
     QPushButton.custom {
         font-weight: bold;
         border-radius: 5px;
