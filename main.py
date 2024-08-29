@@ -17,12 +17,14 @@ class TextEditDelegate(QStyledItemDelegate):
         
     def createEditor(self, parent, option, index):
         editor = QTextEdit(parent)
+        editor.setWordWrapMode(QTextOption.WordWrap)
         return editor
     
     def setEditorData(self, editor, index):
         if self.list_widget.count() > 0 :
             text = index.model().data(index, Qt.EditRole)
             editor.setPlainText(text)
+            editor.setWordWrapMode(QTextOption.WordWrap)
    
     def setModelData(self, editor, model, index):
         text = editor.toPlainText()
@@ -32,7 +34,7 @@ class TextEditDelegate(QStyledItemDelegate):
         editor.setGeometry(option.rect)
 
     def sizeHint(self, option, index):
-        height = self.list_widget.viewport().height() / 3
+        height = self.list_widget.viewport().height() / 4
         return QSize(option.rect.width(), height)
     
     def paint(self, painter, option, index):
@@ -178,7 +180,7 @@ class MainWindow(QMainWindow):
         copyText = self.ui.grd_list.currentItem().text()
         clipboard.copy(copyText)
         try:
-            self.fn_toast("복사 성공")
+            self.fn_toast("Copy")
         except Exception as e:
             print("ddddd" )
         
@@ -201,6 +203,7 @@ class MainWindow(QMainWindow):
         msgBox.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel)
         msgBox.button(QMessageBox.Save).setText("확인")
         msgBox.button(QMessageBox.Cancel).setText("취소")
+        msgBox.setWindowFlags(msgBox.windowFlags() | Qt.WindowStaysOnTopHint)
         ret = msgBox.exec() 
         
         if ret == QMessageBox.Save:

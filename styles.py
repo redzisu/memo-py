@@ -13,7 +13,7 @@ style_sheet = """
     }
     
     QListWidget::item {
-        padding: 10px;
+        padding: 30px 10px;
         border-bottom: 1px dashed #CACACA;  /* 아이템 아래쪽 회색 1px 테두리 */
     }
     
