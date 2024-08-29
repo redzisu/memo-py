@@ -39,14 +39,17 @@ class TextEditDelegate(QStyledItemDelegate):
         
 class MainWindow(QMainWindow):
     def __init__(self):
-        super().__init__()
+        super().__init__(parent=None)
         
         self.ui = Ui_View()
         self.ui.setupUi(self)
         
         self.setWindowTitle("Memo")
-        self.setWindowIcon(QIcon.fromTheme("emblem-favorite"))  # 아이콘 ☆
-    
+        self.setWindowIcon(QIcon.fromTheme("edit-paste")) 
+
+        Toast.setPositionRelativeToWidget(self) # Toast를 부모창에 종속된 위치로 변경
+        Toast.setOffset(10, 10)
+        
         #==================  Default Setting  ====================
         # QListWidget 커스텀 텍스트 편집 
         self.ui.grd_list.setItemDelegate(TextEditDelegate(self.ui.grd_list))
@@ -68,6 +71,10 @@ class MainWindow(QMainWindow):
         self.ui.btn_insertList.setProperty("class", "custom btn-grey") 
         self.ui.btn_deleteList.setProperty("class", "custom btn-red") 
         
+        self.ui.btn_topWindow.setProperty("class", "transparent") 
+        self.ui.btn_topWindow.setIconSize(QSize(20, 20))  # 아이콘 크기 설정
+        self.ui.btn_topWindow.setIcon(QIcon("./icon/pin_unFixed.png"))
+        
         #==================  Signal  ====================
         self.ui.btn_insertList.clicked.connect(self.fn_insertList)
         self.ui.btn_deleteList.clicked.connect(lambda : self.fn_confirm(
@@ -79,8 +86,7 @@ class MainWindow(QMainWindow):
         self.ui.grd_list.itemClicked.connect(self.fn_editEndList)
         self.ui.grd_list.itemDoubleClicked.connect(self.fn_copyList)
         self.ui.grd_list.keyPressEvent = self.event_keyPress
-        
-        self.ui.chk_top.clicked.connect(self.fn_toggleOnTop)
+        self.ui.btn_topWindow.clicked.connect(self.fn_toggleOnTop)
         self.is_always_on_top = False
         
     #==================  Slot ====================
@@ -188,12 +194,16 @@ class MainWindow(QMainWindow):
         base_flags = Qt.Window | Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
         if self.is_always_on_top:
             self.setWindowFlags(base_flags)
-            self.ui.chk_top.setChecked(False)
             self.is_always_on_top = False
+            
+            self.ui.btn_topWindow.setIcon(QIcon("./icon/pin_unFixed.png"))
+            
         else:
             self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
-            self.ui.chk_top.setChecked(True)
             self.is_always_on_top = True
+            
+            self.ui.btn_topWindow.setIcon(QIcon("./icon/pin_fixed.png"))
+            
         self.show()
     
     # pickle파일 빌드용

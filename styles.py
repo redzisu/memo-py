@@ -36,6 +36,11 @@ style_sheet = """
     }
 
     /* 버튼 */
+    QPushButton.transparent {
+        border: none; 
+        background-color: transparent;
+    }
+    
     QPushButton.custom {
         font-weight: bold;
         border-radius: 5px;
@@ -45,6 +50,7 @@ style_sheet = """
         background-color: #E7F4F9;
         position: relative;
     }
+    
     QPushButton.custom.btn-blue {
         background-color: #4EC0E9;
         border-color: #4EC0E9;
