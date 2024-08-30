@@ -48,8 +48,9 @@ class TextEditDelegate(QStyledItemDelegate):
             copy_rect = QRect(rect.right() - 60, rect.top() + 8, icon_size.width(), icon_size.height())
             delete_rect = QRect(rect.right() - 25, rect.top() + 8, icon_size.width(), icon_size.height())
 
-            copy_icon = QIcon("./icon/copy.png")
-            delete_icon = QIcon("./icon/delete.png")
+            # QIcon 경로 설정
+            copy_icon = QIcon(self.main_window.resource_img("./icon/copy.png"))
+            delete_icon = QIcon(self.main_window.resource_img("./icon/delete.png"))
 
             copy_icon.paint(painter, copy_rect, Qt.AlignCenter)
             delete_icon.paint(painter, delete_rect, Qt.AlignCenter)
@@ -113,11 +114,11 @@ class MainWindow(QMainWindow):
         # 버튼 css 설정
         self.ui.btn_insertList.setProperty("class", "custom btn-green") 
         self.ui.btn_insertList.setIconSize(QSize(20, 20))  # 아이콘 크기 설정
-        self.ui.btn_insertList.setIcon(QIcon("./icon/add.png"))
+        self.ui.btn_insertList.setIcon(QIcon(self.resource_img("./icon/add.png")))
         
         self.ui.btn_topWindow.setProperty("class", "transparent") 
         self.ui.btn_topWindow.setIconSize(QSize(20, 20))  # 아이콘 크기 설정
-        self.ui.btn_topWindow.setIcon(QIcon("./icon/pin_unFixed.png"))
+        self.ui.btn_topWindow.setIcon(QIcon(self.resource_img("./icon/pin_unFixed.png")))
         
         #==================  Signal  ====================
         self.ui.btn_insertList.clicked.connect(self.fn_insertList)
@@ -182,8 +183,8 @@ class MainWindow(QMainWindow):
         try:
             self.fn_toast("Copy")
         except Exception as e:
-            print("ddddd" )
-        
+            print("Error" )
+    
     # Alert창 
     # @param 메시지
     def fn_alert(self, pStr): 
@@ -227,20 +228,21 @@ class MainWindow(QMainWindow):
             toast.show()
         except Exception as e:
             print("An error occurred in show_toast:", e)
-    
+
+    # 창 항상 맨 위로 고정
     def fn_toggleOnTop(self, pStr):
         base_flags = Qt.Window | Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
         if self.is_always_on_top:
             self.setWindowFlags(base_flags)
             self.is_always_on_top = False
             
-            self.ui.btn_topWindow.setIcon(QIcon("./icon/pin_unFixed.png"))
+            self.ui.btn_topWindow.setIcon(QIcon(self.resource_img("./icon/pin_unFixed.png")))
             
         else:
             self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
             self.is_always_on_top = True
             
-            self.ui.btn_topWindow.setIcon(QIcon("./icon/pin_fixed.png"))
+            self.ui.btn_topWindow.setIcon(QIcon(self.resource_img("./icon/pin_fixed.png")))
             
         self.show()
     
@@ -254,7 +256,16 @@ class MainWindow(QMainWindow):
         # 폴더생성
         os.makedirs(base_path + '\Memo.bak', exist_ok=True)
         return os.path.join(base_path + '\Memo.bak', relative_path)
-        
+    
+    # 이미지 파일 경로 찾기
+    def resource_img(self, relative_path):
+        if getattr(sys, 'frozen', False):
+            base_path = sys._MEIPASS
+        else:
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, relative_path)
+
 if __name__ == "__main__":
     app = QApplication(sys.argv) 
     app.setStyleSheet(styles.style_sheet)
