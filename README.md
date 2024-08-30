@@ -7,7 +7,7 @@ Simple Memo app using PySide6.
 
 | Default | Edit |
 |---|---|
-![image](https://github.com/user-attachments/assets/4a7cf016-51b9-40b9-9a7f-6354da358f6b) | ![image](https://github.com/user-attachments/assets/e81dab8d-fd25-4b0d-914e-cff5fbbb2a8e)
+![image](https://github.com/user-attachments/assets/e41dd036-8f6a-4d54-9da9-66698eee7d1d) | ![image](https://github.com/user-attachments/assets/60fa2d6e-4cc1-4c21-aa2e-f6b4741a2d53)
    
 ## Environment 
 - Python v3.12
